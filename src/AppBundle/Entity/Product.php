@@ -49,6 +49,12 @@ class Product
      */
     private $category;
 
+    /**
+     * @var bool
+     *
+     * @ORM\Column (type="boolean", options={"default":true})
+     */
+    private $active = true;
 
     /**
      * Get id
@@ -59,6 +65,32 @@ class Product
     {
         return $this->id;
     }
+
+    public static function __callStatic($name, $arguments)
+    {
+        // TODO: Implement __callStatic() method.
+    }
+
+    /**
+     * @return bool
+     */
+    public function isActive()
+    {
+        return $this->active;
+    }
+
+    /**
+     * @param $active
+     *
+     * @return Product
+     */
+    public function setActive($active)
+    {
+        $this->active = $active;
+        return $this;
+
+    }
+
 
     /**
      * Set title
