@@ -21,7 +21,8 @@ class DefaultController extends Controller
 
         $productsQB2 =$this ->getDoctrine() ->getRepository('AppBundle:Product') ->findActive2();
         dump($productsQB2);
-
+        $productsQB3 =$this ->getDoctrine() ->getRepository('AppBundle:Product') ->findActive3();
+        dump($productsQB3);
         $products2 =$this ->getDoctrine() ->getRepository('AppBundle:Product2') ->findAll();
         dump($products2);
 
