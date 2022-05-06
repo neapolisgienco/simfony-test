@@ -18,9 +18,14 @@ class DefaultController extends Controller
         $products2 =$this ->getDoctrine() ->getRepository('AppBundle:Product2') ->findAll();
         dump($products2);
 
+        $products=[];
+        for ($i=1; $i <= 10; $i++){//урок 6 2.40
+            $products[] =rand(1, 100);
+        }
+
 
         // replace this example code with whatever you need
-        return $this->render('default/index.html.twig', [
+        return $this->render('default/index.html.twig', ['products' => $products,
             'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
         ]);
     }
