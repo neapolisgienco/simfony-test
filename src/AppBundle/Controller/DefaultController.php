@@ -15,6 +15,13 @@ class DefaultController extends Controller
     {
         $products =$this ->getDoctrine() ->getRepository('AppBundle:Product') ->findAll();
         dump($products);
+
+        $productsQB =$this ->getDoctrine() ->getRepository('AppBundle:Product') ->findActive();
+        dump($productsQB);
+
+        $productsQB2 =$this ->getDoctrine() ->getRepository('AppBundle:Product') ->findActive2();
+        dump($productsQB2);
+
         $products2 =$this ->getDoctrine() ->getRepository('AppBundle:Product2') ->findAll();
         dump($products2);
 

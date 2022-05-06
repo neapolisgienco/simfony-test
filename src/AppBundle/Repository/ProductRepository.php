@@ -10,4 +10,18 @@ namespace AppBundle\Repository;
  */
 class ProductRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findActive()
+    {
+       return $this->createQueryBuilder('product')
+        -> where('product.id = 1')
+        ->getQuery()
+        ->getResult();
+    }
+    public function findActive2()
+    {
+        return $this->createQueryBuilder('product')
+            -> where('product.active = true')
+            ->getQuery()
+            ->getResult();
+    }
 }
