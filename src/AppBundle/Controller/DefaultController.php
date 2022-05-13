@@ -13,7 +13,7 @@ class DefaultController extends Controller
     /**
      * @Route("/", name="homepage")
      */
-    public function indexAction(Request $request)
+    public function indexAction()
     {
         $products =$this ->getDoctrine() ->getRepository('AppBundle:Product') ->findAll();
         dump($products);
@@ -44,15 +44,19 @@ class DefaultController extends Controller
     }
 
 
-      /**
-       * @Route("/feedback", name="feedback")
-       */
-      public function feedbackAction()
+    /**
+     * @Route("/feedback", name="feedback")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response|null
+     */
+      public function feedbackAction(Request $request)
       {
 
          $form =$this->createForm(FeedbackType::class);
          $form->add ('submut', SubmitType::class);
            dump($form );
+           $form->handleRequest($request);
+           dump($form->getData());//отдаёт либо сущность либо ассоциативный объект
          return $this->render('default/feedback.html.twig',[
              'feedback_form' =>$form->createView()
          ]);

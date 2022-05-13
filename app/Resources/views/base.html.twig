@@ -8,13 +8,13 @@
     </head>
     <body>555
     <!--9 урок 7 минута.30-->
-    {% for product_id in productsMassiv %}
+{#{% for product_id in productsMassiv %}
         <a href="">Product {{ product_id}}</a><br>
     {% endfor %}
     <br><br>
     {% for product in products %}
         <a href="">Product base  {{ product.id}}-{{ product.title}}</a><br>
-    {% endfor %}
+    {% endfor %}#}
 
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
