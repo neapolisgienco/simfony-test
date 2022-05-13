@@ -16,9 +16,11 @@ class FeedbackType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('email')
+
             ->add('massage', \Symfony\Component\Form\Extension\Core\Type\TextType::class );
-    }//->add('created');
+    }
+    //->add('email');
+    //->add('created');
 
     /**
      * {@inheritdoc}

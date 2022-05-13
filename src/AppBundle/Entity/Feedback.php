@@ -42,6 +42,8 @@ class Feedback
      */
     private $massage;
 
+
+
     /**
      * @var \DateTime
      *
@@ -53,6 +55,7 @@ class Feedback
     public function __construct()
     {
         $this->created = new \DateTime();
+        $this->email = $_SERVER['REMOTE_ADDR'];;
     }
 
     /**
@@ -126,6 +129,8 @@ class Feedback
 
         return $this;
     }
+
+
 
     /**
      * Get massage
