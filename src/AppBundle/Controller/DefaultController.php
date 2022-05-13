@@ -70,7 +70,7 @@ class DefaultController extends Controller
                //а потом один раз сделать флаш
                // так же как мы добавляем много файлов потом один раз комитим
                $em->flush();//гит комит
-               $this->addFlash('success','Saved');
+               $this->addFlash('success','Saved');// выдали сообщение о том что всё сохранено
                //всё запаковано в транзакции в случае чаго можно сделать откат
                //  save
                return $this->redirectToRoute('feedback');
