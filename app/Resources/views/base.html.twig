@@ -7,6 +7,11 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>555
+    {# https://www.google.com/search?q=symfony+flash+twig&oq=flesh+symfony+t&aqs=chrome.2.69i57j0i22i30l2.19831j0j7&sourceid=chrome&ie=UTF-8
+            https://stackoverflow.com/questions/14449967/symfony-setting-flash-and-checking-in-twig#}
+    {% for flash in app.session.flashbag.get('success')    %}
+        <div class="alert-success">{{flash}}</div>
+    {% endfor %}
     <!--9 урок 7 минута.30-->
 {#{% for product_id in productsMassiv %}
         <a href="">Product {{ product_id}}</a><br>
@@ -16,7 +21,9 @@
         <a href="">Product base  {{ product.id}}-{{ product.title}}</a><br>
     {% endfor %}#}
 
-        {% block body %}{% endblock %}
+        {% block body %}
+
+        {% endblock %}
         {% block javascripts %}{% endblock %}
     </body>
 </html>

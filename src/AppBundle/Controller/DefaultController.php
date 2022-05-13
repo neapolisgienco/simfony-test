@@ -54,9 +54,29 @@ class DefaultController extends Controller
 
          $form =$this->createForm(FeedbackType::class);
          $form->add ('submut', SubmitType::class);
-           dump($form );
+           //dump($form );
+
            $form->handleRequest($request);
-           dump($form->getData());//отдаёт либо сущность либо ассоциативный объект
+           if($form->isSubmitted()&&$form->isValid()){
+               $feedback=$form->getData();//отдаёт либо сущность либо ассоциативный объект
+               //dump($feedback);
+               $em=$this->getDoctrine()->getManager();//энтети менеджер заботиться о том чтобы
+               //в частности сохранять сущность в базу данных
+               //сущность надо добавить в поле зрения менеджера
+               //после того как вы добавили вы можете её сохранять
+               $em->persist($feedback);//гит эдд
+               //вы можете на создовать кучу сущностей новых понасоздавать из разных таблиц
+               //их всех заперсистить
+               //а потом один раз сделать флаш
+               // так же как мы добавляем много файлов потом один раз комитим
+               $em->flush();//гит комит
+               $this->addFlash('success','Saved');
+               //всё запаковано в транзакции в случае чаго можно сделать откат
+               //  save
+               return $this->redirectToRoute('feedback');
+               // redirect
+           }
+
          return $this->render('default/feedback.html.twig',[
              'feedback_form' =>$form->createView()
          ]);
