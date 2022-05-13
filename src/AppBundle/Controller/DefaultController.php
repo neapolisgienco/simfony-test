@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Form\FeedbackType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -50,6 +51,7 @@ class DefaultController extends Controller
       {
 
          $form =$this->createForm(FeedbackType::class);
+         $form->add ('submut', SubmitType::class);
            dump($form );
          return $this->render('default/feedback.html.twig',[
              'feedback_form' =>$form->createView()

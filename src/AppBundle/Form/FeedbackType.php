@@ -2,6 +2,7 @@
 
 namespace AppBundle\Form;
 
+use Doctrine\DBAL\Types\TextType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -16,9 +17,8 @@ class FeedbackType extends AbstractType
         $builder
             ->add('name')
             ->add('email')
-            ->add('massage')
-            ->add('created');
-    }
+            ->add('massage', \Symfony\Component\Form\Extension\Core\Type\TextType::class );
+    }//->add('created');
 
     /**
      * {@inheritdoc}
