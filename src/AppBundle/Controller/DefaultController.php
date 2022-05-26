@@ -69,6 +69,8 @@ class DefaultController extends Controller
                //их всех заперсистить
                //а потом один раз сделать флаш
                // так же как мы добавляем много файлов потом один раз комитим
+               //var_dump($request->server);//$feedback
+               dump($request->server->get('REMOTE_ADDR'));//die;
                $em->flush();//гит комит
                $this->addFlash('success','Saved');// выдали сообщение о том что всё сохранено
                //всё запаковано в транзакции в случае чаго можно сделать откат
