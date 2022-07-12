@@ -12,10 +12,20 @@ class ProductController extends Controller
      */
     public function indexAction()
     {
-        die('123');
+        $products=[];
+        for($i=1; $i<=10; $i++){
+            $products[]=rand(1, 100);
+        }
+        return $this->render('product/index.html.twig',['products' => $products]);
+
     }
-    public function showAction()
+
+    /**
+     * @Route("/products/{id}", name="product_item", requirements={"id": "[0-9]+"})
+     */
+    public function showAction($id)
     {
-        die('345');
+        dump($id);
+        die('345');//die('123');
     }
 }
