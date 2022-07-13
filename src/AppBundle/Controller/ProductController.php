@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 class ProductController extends Controller
 {
@@ -23,9 +24,9 @@ class ProductController extends Controller
     /**
      * @Route("/products/{id}", name="product_item", requirements={"id": "[0-9]+"})
      */
-    public function showAction($id)
+    public function showAction(Request $request)
     {
-        dump($id);
+        dump($request->get('id'));
         die('345');//die('123');
     }
 }
