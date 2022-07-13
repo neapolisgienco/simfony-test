@@ -1,9 +1,20 @@
 {% extends 'base.html.twig' %}
-
+{% block title %} Home page{% endblock %}
 {% block body %}
 
 
    hello world {{ a }}
+   <br>
+   {% if not some_velue %}
+   {{ 'YES!' }}
+   {% endif %}
+
+   {% for key,some_item in some_array %}<br>
+      {{key  }}-{{ some_item }} &nbsp;<br>
+   {% endfor %}
+
+
+
 {% endblock %}
 
 {% block stylesheets %}

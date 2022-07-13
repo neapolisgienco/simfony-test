@@ -36,8 +36,14 @@ class DefaultController extends Controller
 
 
 
-$a=123;
-        return $this->render('default/index.html.twig', ['a'=> $a, 'productsMassiv' => $productsMassiv, 'products' => $products,
+        $a=123;
+        $someArray=[1,2,3];
+        $someVelue= false;
+        return $this->render('default/index.html.twig', [
+            'a'=> $a,
+            'some_array'=>$someArray,
+            'some_velue'=>$someVelue,
+            'productsMassiv' => $productsMassiv, 'products' => $products,
                   ]);
     }
 
