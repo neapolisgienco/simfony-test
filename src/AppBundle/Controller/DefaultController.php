@@ -39,7 +39,7 @@ class DefaultController extends Controller
         $a=123;
         $someArray=[1,2,3];
         $someVelue= false;
-        return $this->render('default/index.html.twig', [
+        return $this->render('@App/default/index.html.twig', [
             'a'=> $a,
             'some_array'=>$someArray,
             'some_velue'=>$someVelue,
@@ -83,7 +83,7 @@ class DefaultController extends Controller
                // redirect
            }
 
-         return $this->render('default/feedback.html.twig',[
+         return $this->render('@App/default/feedback.html.twig',[
              'feedback_form' =>$form->createView()
          ]);
       }

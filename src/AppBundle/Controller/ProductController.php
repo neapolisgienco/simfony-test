@@ -16,7 +16,7 @@ class ProductController extends Controller
         for($i=1; $i<=10; $i++){
             $products[]=rand(1, 100);
         }
-        return $this->render('product/index.html.twig',['products' => $products]);
+        return $this->render('@App/product/index.html.twig',['products' => $products]);
 
     }
 
@@ -28,7 +28,7 @@ class ProductController extends Controller
     public function showAction($id)
     {
         //dump($id);
-        return $this->render('product/show.html.twig', ['id'=>$id]);
+        return $this->render('@App/product/show.html.twig', ['id'=>$id]);
         die('345');//die('123');
     }
 }
