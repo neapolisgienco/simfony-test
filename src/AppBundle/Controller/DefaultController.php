@@ -36,11 +36,9 @@ class DefaultController extends Controller
 
 
 
-        // replace this example code with whatever you need
-        return $this->render('default/index.html.twig', ['productsMassiv' => $productsMassiv, 'products' => $products,
-            'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
-
-        ]);
+$a=123;
+        return $this->render('default/index.html.twig', ['a'=> $a, 'productsMassiv' => $productsMassiv, 'products' => $products,
+                  ]);
     }
 
 
