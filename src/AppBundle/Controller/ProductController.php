@@ -3,12 +3,14 @@
 namespace AppBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class ProductController extends Controller
 {
     /**
      * @Route("products", name="product_list")
+     * @Template()
      */
     public function indexAction()
     {
@@ -16,7 +18,7 @@ class ProductController extends Controller
         for($i=1; $i<=10; $i++){
             $products[]=rand(1, 100);
         }
-        return $this->render('@App/product/index.html.twig',['products' => $products]);
+        return ['products' => $products];
 
     }
 
