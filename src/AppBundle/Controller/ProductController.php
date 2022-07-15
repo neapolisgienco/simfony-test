@@ -14,6 +14,8 @@ class ProductController extends Controller
      */
     public function indexAction()
     {
+        $products= $this->getDoctrine()->getRepository('AppBundle:Product')->findAll();
+        dump($products); die;
         $products=[];
         for($i=1; $i<=10; $i++){
             $products[]=rand(1, 100);
