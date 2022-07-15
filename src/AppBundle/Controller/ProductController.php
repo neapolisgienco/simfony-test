@@ -15,11 +15,7 @@ class ProductController extends Controller
     public function indexAction()
     {
         $products= $this->getDoctrine()->getRepository('AppBundle:Product')->findAll();
-        dump($products); die;
-        $products=[];
-        for($i=1; $i<=10; $i++){
-            $products[]=rand(1, 100);
-        }
+
         return ['products' => $products];
 
     }
@@ -31,8 +27,9 @@ class ProductController extends Controller
      */
     public function showAction($id)
     {
+        $product= $this->getDoctrine()->getRepository('AppBundle:Product')->find($id);
         //dump($id);
-        return $this->render('@App/product/show.html.twig', ['id'=>$id]);
-        die('345');//die('123');
+        return $this->render('@App/product/show.html.twig', ['product'=>$product]);
+        //die('345');die('123');
     }
 }

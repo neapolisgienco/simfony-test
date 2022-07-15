@@ -4,8 +4,11 @@
 
 
 
-    <h1>Product {{ id }}</h1>
-
+    <h1>Product {{ product.title }}</h1>
+ <hr>
+    Title: {{ product.title }}<br>
+    Price: {{ product.price }}<br>
+    Description: {{ product.description }}<br>
 {% endblock %}
 {% block title %} Product page{% endblock %}
 {% block stylesheets %}
