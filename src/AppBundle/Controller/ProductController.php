@@ -28,6 +28,9 @@ class ProductController extends Controller
     public function showAction($id)
     {
         $product= $this->getDoctrine()->getRepository('AppBundle:Product')->find($id);
+        if(!$product){
+            throw $this->createNotFoundException('Product not found');
+        }
         //dump($id);
         return $this->render('@App/product/show.html.twig', ['product'=>$product]);
         //die('345');die('123');
