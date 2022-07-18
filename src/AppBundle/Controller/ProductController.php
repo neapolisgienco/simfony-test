@@ -32,6 +32,9 @@ class ProductController extends Controller
      */
     public function showAction(Product $product)//$id
     {
+        $name=$product->getCategory()->getName();
+        dump($product);
+//
 //        $product= $this->getDoctrine()->getRepository('AppBundle:Product')->find($id);
 //        if(!$product){
 //            throw $this->createNotFoundException('Product not found');

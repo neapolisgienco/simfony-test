@@ -43,7 +43,7 @@ class Product
     private $description;
 
     /**
-     * @var string
+     * @var Category/null
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Category")
      */
@@ -181,7 +181,7 @@ class Product
     /**
      * Get category
      *
-     * @return string
+     * @return Category/null
      */
     public function getCategory()
     {
