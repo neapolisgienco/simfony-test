@@ -30,11 +30,11 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
             ->getResult();
     }
 
-    public function findActive3()
+    public function findActive3()//подготовленные запрос -актив какое именно значение
     {
         return $this->createQueryBuilder('product')
             -> where('product.id = :active')
-            ->setParameter('active', 1)
+            ->setParameter('active', 2)
             ->getQuery()
             ->getResult();
     }

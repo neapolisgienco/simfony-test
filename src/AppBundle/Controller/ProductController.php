@@ -18,7 +18,7 @@ class ProductController extends Controller
         $products= $this
             ->getDoctrine()
             ->getRepository('AppBundle:Product')
-            ->findActive2();
+            ->findActive3();
 
         //findAll();
         return ['products' => $products];
