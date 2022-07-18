@@ -15,8 +15,12 @@ class ProductController extends Controller
      */
     public function indexAction()
     {
-        $products= $this->getDoctrine()->getRepository('AppBundle:Product')->findAll();
+        $products= $this
+            ->getDoctrine()
+            ->getRepository('AppBundle:Product')
+            ->findActive();
 
+        //findAll();
         return ['products' => $products];
 
     }
