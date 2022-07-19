@@ -1,0 +1,16 @@
+{% extends '@App/layout.html.twig' %}
+
+{% block body %}
+
+
+
+                <h1>Categorys</h1>
+    {% for category in categorys %}
+        <a href="#">Category {{ category.id }}:{{ category.name }}</a><br>
+    {% endfor %}
+
+{% endblock %}
+{% block title %} Categorys{% endblock %}
+{% block stylesheets %}
+
+{% endblock %}
