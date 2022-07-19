@@ -42,6 +42,8 @@
                 <a class="nav-link" href="{{ path('feedback') }}">Feedback</a>
             </li>
 
+
+
             {#<li class="nav-item">
                 <a class="nav-link disabled" href="#">Disabled</a>
             </li>
@@ -65,10 +67,10 @@
     {% for flash in  app.session.flashbag.get('success') %}
         <div class="alert alert-success">{{ flash }}</div>
     {% endfor %}
-    {# $this->addFlash('success','Saved'); эта строчка из
+    {# $this->addFlash('success','Saved'); эта строчка из сообщение о успешной отправке
     /var/www/symfony-test/src/AppBundle/Controller/DefaultController.php #}
     {% block body %}{% endblock %}
-
+  {# TODO добавить капчу https://github.com/Gregwar/CaptchaBundle 17.57 14 урок#}
 
 </main><!-- /.container -->
 
