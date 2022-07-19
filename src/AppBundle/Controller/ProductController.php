@@ -51,7 +51,7 @@ class ProductController extends Controller
      * @return array
      */
     public function listByCategoryAction(Category $category)
-    {
+    {//TODO категории по айдишнику выбирать или ифом или выборкой по айди только активных
         $products= $this
             ->getDoctrine()
             ->getRepository('AppBundle:Product')

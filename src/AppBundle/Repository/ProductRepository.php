@@ -34,7 +34,9 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
     public function findActive3()//подготовленные запрос -актив какое именно значение
     {
         return $this->createQueryBuilder('product')
+            ->join('product.category', 'category')
             -> where('product.active = :active')
+            ->andWhere('category.active= :active')
             ->setParameter('active', false)
             ->getQuery()
             ->getResult();
