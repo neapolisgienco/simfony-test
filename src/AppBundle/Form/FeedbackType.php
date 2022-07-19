@@ -18,6 +18,7 @@ class FeedbackType extends AbstractType
             ->add('name')
 
             ->add('massage', \Symfony\Component\Form\Extension\Core\Type\TextType::class );
+        //насильно поменяли тексэриа на поле текст, тут масса настроек
     }
     //->add('email');
     //->add('created');
@@ -28,7 +29,7 @@ class FeedbackType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Feedback'//только это сюда сама форма
+            'data_class' => 'AppBundle\Entity\Feedback'//только это сюда сама форма- сюда передаётся форма
         ));
     }
 

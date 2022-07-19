@@ -53,16 +53,20 @@ class DefaultController extends Controller
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response|null
      */
-      public function feedbackAction(Request $request)
+      public function feedbackAction(Request $request)//здесь ревест нужен так как данные сюда прилетят
       {
 
          $form =$this->createForm(FeedbackType::class);//создана форма
          $form->add ('submut', SubmitType::class);
+         //кнопка субмит, какой элемент или подход для нарисования класс
            //dump($form );
 
-           $form->handleRequest($request);
-           if($form->isSubmitted()&&$form->isValid()){
+           $form->handleRequest($request);//этот метод сетит в форму значения которые мы отправляем
+          //как следствие можно их проверить и т.д.
+           if($form->isSubmitted()&&$form->isValid()){//если форма валидна и отправлена
                $feedback=$form->getData();//отдаёт либо сущность либо ассоциативный объект
+               //экземпляр класса фидбек в папке ентити//т.е. сущность//но нужно если валидно
+               //dump($form->getData());
                //dump($feedback);
                $em=$this->getDoctrine()->getManager();//энтети менеджер заботиться о том чтобы
                //в частности сохранять сущность в базу данных
@@ -80,6 +84,8 @@ class DefaultController extends Controller
                //всё запаковано в транзакции в случае чаго можно сделать откат
                //  save
                return $this->redirectToRoute('feedback');
+               //ретурн обязательно, из базового контролера куда переадресоваться после отпраки формы
+               //отлследить в last 10 жмём в панели все редиректы токены просмтореть
                // redirect
            }
 
