@@ -54,7 +54,7 @@ class Feedback
 
     public function __construct()
     {
-        $this->created = new \DateTime();
+        $this->created = new \DateTime();//при создании данных будет сетится текущее время
         $this->email = $_SERVER['REMOTE_ADDR'];
     }
 

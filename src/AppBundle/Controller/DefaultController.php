@@ -56,7 +56,7 @@ class DefaultController extends Controller
       public function feedbackAction(Request $request)
       {
 
-         $form =$this->createForm(FeedbackType::class);
+         $form =$this->createForm(FeedbackType::class);//создана форма
          $form->add ('submut', SubmitType::class);
            //dump($form );
 
@@ -84,7 +84,7 @@ class DefaultController extends Controller
            }
 
          return $this->render('@App/default/feedback.html.twig',[
-             'feedback_form' =>$form->createView()
+             'feedback_form' =>$form->createView()//отрендерена форма
          ]);
       }
 

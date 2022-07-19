@@ -28,7 +28,7 @@ class FeedbackType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Feedback'
+            'data_class' => 'AppBundle\Entity\Feedback'//только это сюда сама форма
         ));
     }
 
@@ -37,7 +37,7 @@ class FeedbackType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'appbundle_feedback';
+        return 'appbundle_feedback';//префикс формы для фронтэнда
     }
 
 
