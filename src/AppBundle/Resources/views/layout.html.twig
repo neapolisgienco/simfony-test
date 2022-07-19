@@ -62,6 +62,11 @@
 </nav>
 
 <main role="main" class="container">
+    {% for flash in  app.session.flashbag.get('success') %}
+        <div class="alert alert-success">{{ flash }}</div>
+    {% endfor %}
+    {# $this->addFlash('success','Saved'); эта строчка из
+    /var/www/symfony-test/src/AppBundle/Controller/DefaultController.php #}
     {% block body %}{% endblock %}
 
 
