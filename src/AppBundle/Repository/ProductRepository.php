@@ -2,6 +2,7 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Entity\Category;
 use AppBundle\Entity\Product;
 
 /**
@@ -38,4 +39,18 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function findByCategory(Category $category)//передаём сюда целую категорию
+    {
+        return $this
+            ->createQueryBuilder('product')
+            -> where('product.active = :active')
+            -> andWhere('product.category = :category')//это плейсхлдер на который нужно посетить какой-то параметр
+            ->setParameter('active', 1)
+            ->setParameter('category', $category)//посетили просто категорию, объект более абстрактно на доктрин языке
+            ->getQuery()
+            ->getResult();
+    }
+
+
 }
