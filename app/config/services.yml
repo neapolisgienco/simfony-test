@@ -33,3 +33,6 @@ services:
     # AppBundle\Service\ExampleService:
     #     arguments:
     #         $someArgument: 'some_value'
+    app.serialiser:
+        class: AppBundle\Service\SerializeProductServise
+        public: true

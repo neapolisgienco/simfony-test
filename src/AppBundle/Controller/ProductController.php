@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Category;
 use AppBundle\Entity\Product;
+use AppBundle\Service\SerializeProductServise;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -17,7 +18,8 @@ class ProductController extends Controller
     public function indexAction()
     {
         $products= $this
-            ->getDoctrine()
+            //->getDoctrine()вместо этого хелпера можно написать:
+            ->get('doctrine')
             ->getRepository('AppBundle:Product')
             ->findActive3();
 
@@ -33,6 +35,11 @@ class ProductController extends Controller
      */
     public function showAction(Product $product)//$id
     {
+        //$serializeer= new SerializeProductServise();
+        //$serializeer= $this->container->get('app.serialiser');
+        $serializeer= $this->get('app.serialiser');
+        dump($serializeer->serialize($product));
+        //die;
         $name=$product->getCategory()->getName();
         dump($product);
 //

@@ -15,6 +15,15 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
+
+        // dump($this->container->get('doctrine'));//обект экземпляр доктрины
+       dump($this->container->getParameter('api_key'));
+        //dump($this->container->getParameter('database_name'));
+        //отображаем базы данных файлы не комитятся в репрезенторий
+              dump($this->container);
+       // die;
+
+
         $products =$this ->getDoctrine() ->getRepository('AppBundle:Product') ->findAll();
         dump($products);
 
