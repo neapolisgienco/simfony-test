@@ -1,0 +1,516 @@
+12 урок
+поработаем с категориями на странице продуктов
+
+/var/www/symfony-test/src/AppBundle/Resources/views/product/show.html.twig
+Category: {{ product.category }}<br>
+
+An exception has been thrown during the rendering of a template ("Catchable Fatal Error: Object of class Proxies\__CG__\AppBundle\Entity\Category could not be converted to string").
+и то как решать
+
+/var/www/symfony-test/src/AppBundle/Controller/ProductController.php
+здесь выводим дамп
+
+ public function showAction(Product $product)//$id
+    { dump($product);
+  
+  debug 
+  http://127.0.0.1:8000/_profiler/d09754?panel=dump
+  
+  прокси объект до того
+  -category: Category {#527 ▼
+    +__isInitialized__: false
+    -id: 2
+    -name: null
+     …2
+  }
+  
+  исправляем 
+  /var/www/symfony-test/src/AppBundle/Resources/views/product/show.html.twig
+  Category: {{ product.category.name }}<br>
+  
+  ------------------------
+  12 урок продолжение делаем страничку категорий
+  04,09
+  (контроллер, лайаут- меню, и папка со страницей в папке ресурсов вюшка)
+  ----------------------------
+  выводим продукты по категориям 8.47
+  
+  
+  идём в продукт репозитори где у нас запросы к базе данных
+  и добавляем роут в продукт контроллер
+  в роуте прописана зависимость от айдишника 
+  
+  вьюшка анерскор отностительно названия
+  
+  
+  public function listByCategoryAction(Category $category) новый метод в репрезентории
+  -----------------------------------
+ 13.29
+ добавляем джойн 
+ на категории свойство актив
+ 
+ ---------------------
+alt+insert сгенерировать гетеры
+
+getting seting
+
+выбираем active
+и жмём ок
+
+
+/**
+     * @param bool $active
+     */
+    public function setActive($active)
+    {
+        $this->active = $active;
+        return $this;
+    }
+
+    
+    добавляем  return $this;
+далее на комите к гетеру курсор
+alt+enter
+и апдейт комит
+
+
+bin/console doctrine:schema:update --dump-sql какие запросы будут выполнены
+bin/console doctrine:schema:update --force
+
+далее собственно джойн
+/var/www/symfony-test/src/AppBundle/Repository/ProductRepository.php
+
+сюда findActive3
+
+ 
+++++++++++++++++++++++++++++++++++
+11 урок 
+связывание сущностей
+
+сделано раньше
+=====================
+урок 10 
+сложные запросы  
+сюда  public function indexAction()
+->findActive();
+/var/www/symfony-test/src/AppBundle/Controller/ProductController.php
+
+
+а сам запрос здесь /var/www/symfony-test/src/AppBundle/Repository/ProductRepository.php
+public function findActive2()
+    {
+        return $this->createQueryBuilder('product')
+            -> where('product.active = true')
+            ->getQuery()
+            ->getResult();
+=========================
+работа с базой второй урок
+моделс в эмвиси распался на 
+запросы к базе данных 
+продукты- контроллер моделька продукта
+в репрезентории запросы к базе данных чтобы эту модельку взять
+
+в контроллере продукстс пишем  $products= $this->getDoctrine() специальный хелпер 
+и далее взять репрезентрорий в котором надо взять шорткат 
+шрорткат это название бандла двоеточие название сущности 
+ $products= $this->getDoctrine()->getRepository('AppBundle:Product') чтобы доктрина понимала в какую сущность преобразовывать извлечённые записи.
+ 
+  далее два варианта
+  если это простой запрос то можно использовать один из готовых методов
+  файнд бай айди , файнд бай  что либо файнд ол- взять все файнд бай какой то критерий
+  есть уже несколько готовых методов общие для всех моделей для всех сущностей
+  
+  мы видим что class ProductRepository extends \Doctrine\ORM\EntityRepository экстендится от энтити репозитори
+  а в энтити репозитори уже есть методы файнд бай файнд ол и так далее
+  
+  все репрезентории наследуются от этого энтити репозитори
+  
+  и теперь всё эт о выводим (ProductController.php)
+  $products= $this->getDoctrine()->getRepository('AppBundle:Product')->findAll();
+        dump($products); die;
+  damp($products); die;
+ после этого всё что после файнд ол до риторн стираем
+ идём во вьюшку и там уже перебираем продукты
+{% for product in products %}
+        <a href="{{ path('product_item', {id:product.id} ) }}">Product {{ product.id }}:{{ product.title }}</a><br>
+    {% endfor %}
++++++++++++++++++++++++++++++++++++++++
+
+
+https://symfony.com/doc/3.4/controller/error_pages.html
+http://127.0.0.1:8000/_error/401
+-----------------
+bin/console ca:cl -e prod
+
+
+5 урок добавление бутстрап в папку паблик
+bin/console assets:install
+
+копирует из папки /var/www/symfony-test/src/AppBundle/Resources/public/
+в папку /var/www/symfony-test/web/bundles
+
+bin/console assets:install --symlink
+
+
+Ctrl + / — закомментировать/раскомментировать текущую строку. 
+Ctrl + Shift + / — закомментировать/раскомментировать выделенные строки кода. Ctrl + Shift + J — к текущей строке присоединяет нижнюю.
+
++++++++++++++++++++++++++++
+переход к файлу контрол альт клик мышкой
+
+6 занятие 17.35 если нужен слеш в шаблоне  @Route("/products/{id}", name="product_item", requirements={"id": "[0-9]+"})
+надо смотреть как что 
+
+комит в твиге {#{% block body %}#}
+
+****************************
+
+ ⁄var⁄www⁄resh⁄src⁄ReshBundle⁄Repository⁄
+/var/www/resh/src/ReshBundle/Entity/
+
+ git clone git@github.com:neapolisgienco/simfony-test.git
+git checkout -b simfony-test
+
+ключ
+/home/vlad/.ssh/id_rsa.pub
+прописать сюда
+https://github.com/settings/keys
+
+git clone git@github.com:neapolisgienco/simfony-test.git
+git push --set-upstream git@github.com:neapolisgienco/symfony-test.git symfony-test
+git status
+git push git@github.com:neapolisgienco/symfony-test.git 
+git branch --set-upstream-to=origin/symfony-test
+
+
+/var/www/resh/app/config/parameters.yml
+
+C:\OpenServer\domains\sim6\config\services.yaml
+
+
+========================================
+
+
+***********************************************
+cd /var/www/symfony-test/
+http://symfony-test.local/
+sudo nano /etc/hosts
+127.0.0.1   symfony-test.local www.symfony-test.local
+/etc/nginx/sites-available/
+sudo ln -s /etc/nginx/sites-available/symfonytest.conf /etc/nginx/sites-enabled/
+sudo systemctl restart nginx
+
+php bin/console server:start
+php bin/console server:stop
+
+*******************************
+DoctrineMigrations:
+********************
+su - postgres
+ psql
+CREATE USER symfonytest WITH PASSWORD 'symfonytest';
+ALTER ROLE symfonytest CREATEDB;
+vlad@vlad-7:/var/www/symfony-test$ bin/console doctrine:database:create
+ bin/console doctrine:generate:entity
+
+ The Entity shortcut name: AppBundle:Product
+/var/www/symfony-test/src/AppBundle/Entity/Product.php
+/var/www/symfony-test/src/AppBundle/Repository/ProductRepository.php
+[annotation]: 
+New field name (press <return> to stop adding fields): title
+Field type [string]: 
+Field length [255]: 
+Is nullable [false]: 
+Unique [false]: 
+
+
+New field name (press <return> to stop adding fields): price
+Field type [string]: decimal
+Precision [10]: 10
+Scale: 2
+Is nullable [false]: 
+Unique [false]: 
+
+New field name (press <return> to stop adding fields): description
+Field type [string]: text
+Is nullable [false]: true
+Unique [false]: 
+
+New field name (press <return> to stop adding fields): category
+Field type [string]: 
+Field length [255]: 
+Is nullable [false]: true
+Unique [false]: 
+
+после этого ентер когда таблица закончена 
+
+bin/console doctrine:schema:update --dump-sql какие запросы будут выполнены
+bin/console doctrine:schema:update --force
+bin/console doctrine:schema:validate
+
+============================================
+3 папка 4 урок
+квери билдер 
+дкуэль докртрин квери ленгвидж 
+это запросы с примесью обектов сущностей
+скуэл стракчер квери ленгвидж
+
+другой способ это квери биледр
+особенный запрос с дополнительными критериями сортировкой
+/var/www/symfony-test/src/AppBundle/Repository/ProductRepository.php
+
+если не хардкодить а сделать подготовленный запрос 
+у BDO есть
+припеар а потом сетите на эти плейсхолдеры параметры
+тоже самое можно сделать если я не хочу хардкодить сюда это значение
+
+и таким образом в этот репозиторий вы добавляете кучу методов которые
+Вам нужны для Вашей бизнеслогики
+
+
+
+============================================
+13 урок
+ bin/console doctrine:generate:entity
+ AppBundle:Feedback
+ 
+The Entity shortcut name: AppBundle:Feedback
+
+Determine the format to use for the mapping information.
+
+Configuration format (yml, xml, php, or annotation) [annotation]: 
+
+Instead of starting with a blank entity, you can add some fields now.
+Note that the primary key will be added automatically (named id).
+
+Available types: array, simple_array, json_array, object, 
+boolean, integer, smallint, bigint, string, text, datetime, datetimetz, 
+date, time, decimal, float, binary, blob, guid.
+
+New field name (press <return> to stop adding fields): name
+Field type [string]: 
+Field length [255]: 
+Is nullable [false]: 
+Unique [false]: 
+
+New field name (press <return> to stop adding fields): email
+Field type [string]: 
+Field length [255]: 
+Is nullable [false]: 
+Unique [false]: 
+
+New field name (press <return> to stop adding fields): massage
+Field type [string]: text
+Is nullable [false]: 
+Unique [false]: 
+
+New field name (press <return> to stop adding fields): created
+Field type [string]: datetime
+Is nullable [false]: 
+Unique [false]: 
+
+bin/console doctrine:schema:update --dump-sql
+
+bin/console doctrine:schema:update --force
+
+05.37
+
+bin/console doctrine:generate:form AppBundle:Feedback
+
+создался файл /var/www/symfony-test/src/AppBundle/Form/FeedbackType.php
+
+конец 13 урока
+
+--------------------
+14 урок в /var/www/symfony-test/src/AppBundle/Controller/DefaultController.php
+добавляем кнопку субмит
+
+
+вывести сообщение о отправке формы
+https://www.google.com/search?q=flash+symfony+twig&sxsrf=ALiCzsZRn2u1V_Z_27J_lsohBnYs2xDuEA%3A1658245694165&ei=PtLWYt7bCYKVrwSn7IqACQ&ved=0ahUKEwje8rPMpoX5AhWCyosKHSe2ApAQ4dUDCA4&uact=5&oq=flash+symfony+twig&gs_lcp=Cgdnd3Mtd2l6EAMyBggAEB4QFjIGCAAQHhAWOgcIABBHELADSgQIQRgASgQIRhgAUKgJWNcuYN0yaAFwAXgAgAGVAYgB5gOSAQMzLjKYAQCgAQHIAQjAAQE&sclient=gws-wiz
+
+flash symfony twig
+
+https://stackoverflow.com/questions/14449967/symfony-setting-flash-and-checking-in-twig
+
+app.session.flashbag.get('error') %}
+
+--------------
+добавка капчи
+
+https://www.google.com/search?q=gregwar+captcha+symfony&sxsrf=ALiCzsZlCnqe1gCNj-BcWR6iNfHCHMUCjw%3A1658246676871&ei=FNbWYobcNMmQrgSujrDYAg&oq=gregwar+captcha+&gs_lcp=Cgdnd3Mtd2l6EAEYAjIFCAAQywEyBggAEB4QFjIGCAAQHhAWMgYIABAeEBYyBggAEB4QFjIGCAAQHhAWMgYIABAeEBYyBggAEB4QFjIICAAQHhAWEAoyBggAEB4QFjoECAAQR0oECEEYAEoECEYYAFCHGliHGmDdLmgAcAJ4AIABUogBUpIBATGYAQCgAQHIAQjAAQE&sclient=gws-wiz
+
+gregwar captcha symfony
+
+https://github.com/Gregwar/CaptchaBundle
+
+README.md
+
+конец 14 урока
+
+--------------
+
+
+ /**                                                                  
+  * @Route("/feedback", name="feedback")                              
+  */                                                                  
+                                                                      
+     public function FeedbackAction()   {                             
+                                                                      
+          //                                                          
+          return $this->render('default/feedback.html.twig');         
+}  
+
+
+после изменения данного параметра на
+public function feedbackAction(Request $request)
+правой кнопкой на request и выбираем 
+show contecst actions
+update PHPDocs coments
+
+ //'feedback_form' => $form->createView()
+                {{ form(feedback_form)}}
+--------------------------------
+15 урок симфони
+углубление в форму
+
+https://www.google.com/search?q=symfony+form+customization&sxsrf=ALiCzsYWAYyj2gydrNwpQM7HMlLTfJpOBQ%3A1658305482555&ei=yrvXYuzAIYTfrgTBr53oAg&oq=symfony+form+custom&gs_lcp=Cgdnd3Mtd2l6EAEYBzIECCMQJzIFCAAQywEyBQgAEMsBMgUIABDLATIFCAAQgAQyBQgAEIAEMgQIABBDMgUIABCABDIFCAAQgAQyBQgAEIAEOgcIABBHELADSgQIQRgASgQIRhgAUIQIWIQIYPAgaAFwAXgAgAFPiAFPkgEBMZgBAKABAcgBCMABAQ&sclient=gws-wiz
+
+symfony form customization
+
+https://symfony.com/doc/current/form/form_customization.html
+https://symfony.com/doc/3.4/form/form_customization.html
+
+Making Application-wide Customizations
+# app/config/config.yml общий файл конфигурации для любой среды
+
+найти твиг и добавить ключ форм тимс
+# app/config/config.yml
+twig:
+    form_themes:
+        - 'form/fields.html.twig'
+    # ...
+    
+What are Form Themes?    
+    bootstrap_3_layout.html.twig
+    
+    если свой файл то копируем переопределяем и пишем своё 12.42 15 урок свой файл пишем и т.д.
+    
+ /var/www/symfony-test/vendor/symfony/symfony/src/Symfony/Bridge/Twig/Resources/views/Form/bootstrap_3_layout.html.twig   
+
+form_widget
+/var/www/symfony-test/vendor/symfony/symfony/src/Symfony/Bridge/Twig/Resources/views/Form/form_div_layout.html.twig
+
+по дефолту все поля в том же порядке как в билдере написаны здесь /var/www/symfony-test/src/AppBundle/Form/FeedbackType.php
+
+есть куча вариантов вложенные формы , нинамические формы, формы с джаваскриптом когда  поля можно добавлять и т.д.
+
+---------------------
+16 урок
+ сервисы сервис контейнер основные вещи
+  dump($this->container);
+        die;
+ privates: array:211 [▼
+ 
+ одни определяются в бандлах вендора
+ вторые часть определяется Вами
+ в файлах
+ /var/www/symfony-test/app/config/parameters.yml
+ api_key: kv1234ha298hfa84rt
+ 
+ например параметры соединения с базой данных
+ "database_host" => "localhost"
+    "database_port" => 5432
+    "database_name" => "symfonytest"
+    "database_user" => "symfonytest"
+    "database_password" => "symfonytest"
+    
+    
+ 
+ и в файле
+ /var/www/symfony-test/app/config/parameters.yml.dist
+ api_key: ~
+ в данном случае мы смотрим на контейнер как на объект который содержит эти параметры, которые были вытащены из этого файла
+ 
+ 
+ #services: array:80 [▼
+ это обекты . На этапе инициализации приложения эти объекты создаются один раз и хранятся во время выполнения скрипта в оперативной памяти
+ они уже есть готовые не нужно несколько объектов одного класса
+ т.е. сервис это такой класс объект которого создаётся как правило один раз 
+ на этапе инициализации приложения и можно его использовать предварительно вытащив из сервисконтейнера
+ 
+ 
+ как правило выполняет черновую работу и является прослойкой между контроллером моделью, может быть сам частью модели
+ фактически дополнительные вспомогательные классы экземпляры которых точно понадобятся скорее всего в единственном числе
+ 
+ вместо сингл тона и обращатся через статический метод чтобы он  создал инстенс
+ создаём один раз и записываем в сервис кнтейнер, чуть круче чем реджестри
+ 
+ пример
+ dump($this->container->get('doctrine'));//обект экземпляр доктрины 
+ 
+ "doctrine" => Registry {#255 ▼
+      -name: "ORM"
+      -connections: array:1 [▶]
+      -managers: array:1 [▶]
+      -defaultConnection: "default"
+      -defaultManager: "default"
+      -proxyInterfaceName: "Doctrine\ORM\Proxy\Proxy"
+      #container: appDevDebugProjectContainer {#110}
+    }
+ 
+ хелпер ->getDoctrine()
+ /var/www/symfony-test/vendor/symfony/symfony/src/Symfony/Bundle/FrameworkBundle/Controller/ControllerTrait.php
+ 
+ базовые сервисы которые уже в базовом дистрибутиве симфони есть
+ логер, роутер , доктрина
+ 
+ например $this->addFlash( обращение к сессии
+ 
+  protected function addFlash($type, $message)
+    {
+        if (!$this->container->has('session')) {
+            throw new \LogicException('You can not use the addFlash method if sessions are disabled. Enable them in "config/packages/framework.yaml".');
+        }
+
+        $this->container->get('session')->getFlashBag()->add($type, $message);
+    }
+    
+    из контейнера берётся сессия
+    в контейнере все необходимые инструменты чтобы всё это собралось
+    если свой фреймворк писать то постонянно нужно дописывать эти вещи, как то интегрировать, контенер тула где всё это интегрировано
+    
+    ------------------------------
+    создаём свой сервис
+    контреллер
+    коменда
+    лисенер
+    расширение твига
+    сервис
+    всё можно оформить сервисом
+    
+    чтобы каждый раз не вызывать свой сервис можно добавить его в сервисы
+    
+    /var/www/symfony-test/app/config/services.yml
+    
+    
+    /var/www/symfony-test/src/AppBundle/Controller/ProductController.php
+    //$serializeer= new SerializeProductServise();
+        //$serializeer= $this->container->get('app.serialiser');
+        $serializeer= $this->get('app.serialiser');
+        
+        --------------
+        
+        можно передавать зависимости в сервис- эдванст
+        базовые вещи как их регистрировать
+        в   /var/www/symfony-test/app/config/services.yml
+        в это место
+        app.serialiser:
+        class: AppBundle\Service\SerializeProductServise
+        можно передавать arguments: и как это собирается, это как предавать зависимости в сервис
+        public: true
+
+        посмотреть дамп можно здесь http://127.0.0.1:8000/products/2
+        
+        
+        /usr/bin/pg_dump
