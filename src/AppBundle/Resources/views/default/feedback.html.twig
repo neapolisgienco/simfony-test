@@ -1,8 +1,20 @@
 {% extends '@App/layout.html.twig' %}
 {% block title %} feedback{% endblock %}
 {% block body %}
+    <h1>Feedback page</h1>
+
     444
-    {{form(feedback_form) }}{# отрендерена форма конец 13 урока #}
+    {#{{form(feedback_form) }} отрендерена форма конец 13 урока #}
+    {{form_start(feedback_form) }}{# 15 урок разбили на начало и конец#}
+
+      {{ form_row(feedback_form.email) }}{#перемещает в дначало данное поле отрендерил вначале#}
+    Hello<br>
+    {{ form_widget (feedback_form.massage , {'attr':{'class':'form-control'}}) }}{#
+    добавили класс 'form-control' к инпуту
+    в form_row входит также отделение для ошибки#}
+    {{ form_label (feedback_form.massage)}}{#поменяли местами лейбл и тело текст ариа или инпут#}
+    {{form_end(feedback_form) }}
+
     333
 {% endblock %}
 

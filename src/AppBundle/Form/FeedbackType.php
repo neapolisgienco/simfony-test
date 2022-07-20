@@ -16,11 +16,11 @@ class FeedbackType extends AbstractType
     {
         $builder
             ->add('name')
-
+            ->add('email')//здесь  можно засетить третьим параметром html классы фром контрол
             ->add('massage', \Symfony\Component\Form\Extension\Core\Type\TextType::class );
         //насильно поменяли тексэриа на поле текст, тут масса настроек
     }
-    //->add('email');
+    //;
     //->add('created');
 
     /**
